@@ -8,9 +8,9 @@ describe('registration-and-authorization-tests', () => {
     {
         testData:
         {
-          firstName: 'Maxim',
+          firstName: 'Maksym1',
           lastName: 'Kozub',
-          email: 'maxim11@gmail.com',
+          email: 'maxim20@gmail.com',
           telephone: '+380-983-12-54',
           fax: '-',
           company: 'XZ',
@@ -19,7 +19,7 @@ describe('registration-and-authorization-tests', () => {
           city: 'Kyiv',
           postcode: '03040',
           country_id: 'United Kingdom',
-          loginName:'MAXIM',
+          loginName:'Maksym1',
           passWord: 'AAbb1122',
           confirm: 'AAbb1122',
           zone_id: 'Aberdeen',
@@ -28,7 +28,7 @@ describe('registration-and-authorization-tests', () => {
 
         expectedResult:
         {
-          loginname: 'MAXIM',
+          loginname: 'Maksym1',
           password: 'AAbb1122'   
         },
     }]      
@@ -61,13 +61,17 @@ describe('registration-and-authorization-tests', () => {
       cy.get('#AccountFrm_agree').click()
 
       cy.get('.btn.btn-orange.pull-right.lock-on-click').click();
-
+      
+      cy.get('.ct_padding_right').should('contain',' Your Account Has Been Created!')
+    });
+    
+    it(`${testData.content}`, () => {
       cy.visit('https://automationteststore.com/index.php?rt=account/login');
       
       cy.get('#loginFrm_loginname').type(expectedResult.loginname);
       cy.get('#loginFrm_password').type(expectedResult.password);
-      
-      cy.get('.btn.btn-orange.pull-right').eq(1).click();   
-    });
+      cy.get('.btn.btn-orange.pull-right').eq(1).click();
+    })
    });
 });
+
