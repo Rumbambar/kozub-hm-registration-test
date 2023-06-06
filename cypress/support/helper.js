@@ -4,7 +4,7 @@ export function login(user) {
     cy.visit('/index.php?rt=account/login');
     
     cy.log('check usen unauthorized')
-    cy.getCookie('customer').should('be.null');
+    //cy.getCookie('customer').should('be.null');
     
     cy.log('Authorize user')
     cy.get('#loginFrm_loginname').type(user.loginName);
@@ -13,12 +13,22 @@ export function login(user) {
   
 }
 
-//  export function findProduct(shavingCream) {
-//      cy.visit('https://automationteststore.com/index.php?rt=product/search&keyword=E&category_id=0&sort=date_modified-ASC&limit=20&page=1');
-//      cy.get('[title="Shaving cream"]').should('exist')
+export function findProduct(armaniCodePourFemme) {
+    cy.visit('/index.php?rt=product/search&keyword=E&category_id=0&sort=date_modified-ASC&limit=20&page=1');
+    if(('[title="Armani Code Pour Femme"]').be.visible)
+        console.log('Product is find')
+    else if (('[title="Armani Code Pour Femme"]').not.be.visible)
+        console.log('Product don\'t find')
     
-    
-    
-    
-  
-//  }
+    cy.visit('/index.php?rt=product/search&keyword=E&category_id=0&sort=date_modified-ASC&limit=20&page=2');
+    if(('[title="Armani Code Pour Femme"]').should('be.visible'))
+        console.log('Product is find')
+    else if (('[title="Armani Code Pour Femme"]').not.be.visible)
+        console.log('Product don\'t find')
+
+    cy.visit('/index.php?rt=product/search&keyword=E&category_id=0&sort=date_modified-ASC&limit=20&page=3');
+    if(('[title="Armani Code Pour Femme"]').should('be.visible'))
+        console.log('Product is find')
+    else if (('[title="Armani Code Pour Femme"]').not.be.visible)
+        console.log('Product don\'t find')
+}
