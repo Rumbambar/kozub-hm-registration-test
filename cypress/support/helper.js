@@ -32,3 +32,32 @@ export function findProduct(armaniCodePourFemme) {
     else if (('[title="Armani Code Pour Femme"]').not.be.visible)
         console.log('Product don\'t find')
 }
+
+export function findNewProd(productName){
+    cy.get('ul.pagination a').then( pages => {
+        for(let i = 1; i < pages.length; i++){
+            cy.location().then( location => {
+                if(!location.search.includes('product/product')){
+                    cy.get('body').then( body => {
+                        if(body.find(`.prdocutname[title="${productName}"]`).length > 0){
+                            cy.get(`.prdocutname[title="${productName}"]`).click();
+                        } else {
+                            cy.get('ul.pagination a').contains('>').click();
+                        }
+                    })
+                }
+            })
+        }
+    })
+}
+
+export function findProduct(productName){
+    cy.get('body').then( body => {
+        if(body.find(`.prdocutname[title="${productName}"`).length > 0){
+            cy.get(`.prdocutname[title="${productName}"]`).click();
+        } else {
+            cy.get('ul.pagination a').contains('>').click();
+            findProduct(productName)
+        }
+    })
+}
